@@ -1,0 +1,18 @@
+
+FROM loanmanagementsystem-base:7.5.1804
+
+ENV PATH=${PATH}:/usr/local/node/bin/
+
+WORKDIR /usr/local/bin/lms
+
+COPY lms/package.json /usr/local/bin/lms/
+
+COPY lms/package-lock.json /usr/local/bin/lms
+
+RUN npm install --only=production && yum clean all -y
+
+COPY lms /usr/local/bin/lms
+
+STOPSIGNAL SIGINT
+
+ENTRYPOINT ["node", "app.js"]
