@@ -1,0 +1,14 @@
+FROM centos:7.5.1804
+
+RUN yum install -y wget && \
+wget https://nodejs.org/dist/v10.13.0/node-v10.13.0-linux-x64.tar.xz && \
+mkdir -p /usr/local/node && \
+tar -xf node-v10.13.0-linux-x64.tar.xz -C /usr/local/node && \
+mv /usr/local/node/node-v10.13.0-linux-x64/* /usr/local/node/ && \
+echo 'export PATH=$PATH:/usr/local/node/bin/' >> /etc/profile.d/custom.sh && \
+chmod +x /etc/profile.d/custom.sh && \
+. /etc/profile && \
+rm node-v10.13.0-linux-x64.tar.xz && \
+rm -rf /usr/local/node/node-v10.13.0-linux-x64 && \
+yum clean all && \
+rm -rf /var/cache/yum
